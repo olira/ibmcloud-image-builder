@@ -7,7 +7,7 @@
     "iso_checksum": "877e267a9153877d156c2cfee034159177fc2c926d389c07f4c03d0ebd6dcf46",
     "iso_name": "openSUSE-Leap-15.3-DVD-s390x.iso",
     "mirror": "http://suse.mobile-central.org/distribution",
-    "mirror_directory": "leap/15.3.iso"
+    "mirror_directory": "leap/15.3/iso"
   },
   "builders": [
     {

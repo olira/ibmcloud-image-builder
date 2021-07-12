@@ -23,6 +23,9 @@ clean:
 ubuntu-bionic-base:
 	$(MAKE) build-image DISTRO_NAME=ubuntu DISTRO_VERSION=bionic TYPE=base
 
+ubuntu-bionic-base-s390x:
+	$(MAKE) build-image DISTRO_NAME=ubuntu DISTRO_VERSION=bionic TYPE=base-s390x
+
 ubuntu-bionic-docker:
 	$(MAKE) build-image DISTRO_NAME=ubuntu DISTRO_VERSION=bionic TYPE=docker
 
@@ -31,6 +34,9 @@ centos-7-base:
 
 centos-7-docker:
 	$(MAKE) build-image DISTRO_NAME=centos DISTRO_VERSION=7 TYPE=docker
+
+sles-leap-base-s390x:
+	$(MAKE) build-image DISTRO_NAME=sles DISTRO_VERSION=leap TYPE=base-s390x
 
 build-image:
 	$(if $(DISTRO_NAME),,$(error DISTRO_NAME is not set. [ubuntu, centos]))

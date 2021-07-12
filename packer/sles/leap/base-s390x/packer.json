@@ -1,20 +1,24 @@
 {
   "variables": {
-      "image_url": "https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-s390x.img",
-      "image_checksum_url": "https://cloud-images.ubuntu.com/bionic/current/SHA256SUMS",
-      "image_name": "packer",
-      "ssh_private_key_file": "{{env `PACKER_PRIVATE_KEY`}}"
+    "image_url": "https://cloud-images.ubuntu.com/bionic/current/bionic-server-cloudimg-s390x.img",
+    "image_checksum_url": "https://cloud-images.ubuntu.com/bionic/current/SHA256SUMS",
+    "image_name": "packer",
+    "ssh_private_key_file": "{{env `PACKER_PRIVATE_KEY`}}",
+    "iso_checksum": "877e267a9153877d156c2cfee034159177fc2c926d389c07f4c03d0ebd6dcf46",
+    "iso_name": "openSUSE-Leap-15.3-DVD-s390x.iso",
+    "mirror": "http://suse.mobile-central.org/distribution",
+    "mirror_directory": "leap/15.3.iso"
   },
   "builders": [
     {
       "type": "qemu",
-      "iso_url": "{{user `image_url`}}",
-      "iso_checksum": "file:{{user `image_checksum_url`}}",
       "shutdown_command": "rm -f /home/ubuntu/.ssh/authorized_keys && sudo rm -f /root/.ssh/authorized_keys && echo 'packer' | sudo -S shutdown -P now",
       "output_directory": "output-qemu",
-      "disk_size": "10G",
+      "disk_size": "100G",
       "format": "qcow2",
       "http_directory": "http",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_url": "{{user `mirror`}}/{{user `mirror_directory`}}/{{user `iso_name`}}",
       "communicator": "ssh",
       "ssh_username": "ubuntu",
       "ssh_private_key_file": "{{user `ssh_private_key_file`}}",
@@ -28,15 +32,15 @@
       "qemu_binary": "qemu-system-s390x",
       "machine_type": "s390-ccw-virtio-focal",
       "qemuargs": [
-          ["-cdrom", "disk-ssh-pub.img"]]
+        ["-cdrom", "disk-ssh-pub.img"]]
     }
-],
-"provisioners": [
+  ],
+  "provisioners": [
     {
       "type": "shell",
       "execute_command": "chmod +x {{.Path}}; sudo {{.Path}}",
       "scripts": [
-         "shell/user-data.sh"
+        "shell/user-data.sh"
       ]
     },
     {
@@ -44,5 +48,5 @@
       "user": "ubuntu",
       "playbook_file": "ansible/playbook.yml"
     }
-]
+  ]
 }

@@ -7,10 +7,18 @@
     "iso_checksum": "877e267a9153877d156c2cfee034159177fc2c926d389c07f4c03d0ebd6dcf46",
     "iso_name": "openSUSE-Leap-15.3-DVD-s390x.iso",
     "mirror": "http://suse.mobile-central.org/distribution",
-    "mirror_directory": "leap/15.3/iso"
+    "mirror_directory": "leap/15.3/iso",
+    "autoinst_cfg": "15/autoinst.xml"
   },
   "builders": [
     {
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux netsetup=dhcp netdevice=eth0 install=cd:/<wait>",
+        " lang=en_US autoyast=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `autoinst_cfg`}}<wait>",
+        " gfxpayload=text<wait>",
+        "<enter><wait>"
+      ],
       "type": "qemu",
       "shutdown_command": "rm -f /home/ubuntu/.ssh/authorized_keys && sudo rm -f /root/.ssh/authorized_keys && echo 'packer' | sudo -S shutdown -P now",
       "output_directory": "output-qemu",

@@ -14,7 +14,7 @@
       "type": "qemu",
       "shutdown_command": "rm -f /home/ubuntu/.ssh/authorized_keys && sudo rm -f /root/.ssh/authorized_keys && echo 'packer' | sudo -S shutdown -P now",
       "output_directory": "output-qemu",
-      "disk_size": "100G",
+      "disk_size": "10G",
       "format": "qcow2",
       "http_directory": "http",
       "iso_checksum": "{{user `iso_checksum`}}",
